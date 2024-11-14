@@ -399,6 +399,9 @@ class BaseDocument:
 							eval_locals={"doc": self},
 						)
 
+				if frappe.db.db_type == "postgres":
+					table_fields += ("JSON", )
+				
 				if isinstance(value, list) and df.fieldtype not in table_fields:
 					frappe.throw(_("Value for {0} cannot be a list").format(_(df.label, context=df.parent)))
 
